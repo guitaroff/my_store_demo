@@ -1,0 +1,17 @@
+development:
+  adapter: postgresql
+  encoding: unicode
+  database: my_store_development
+  pool: 5
+
+staging:
+  adapter: postgresql
+  encoding: unicode
+  database: my_store_staging
+  pool: 5
+
+production:
+  adapter: postgresql
+  encoding: unicode
+  database: my_store_production
+  pool: 5
