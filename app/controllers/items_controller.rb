@@ -15,13 +15,18 @@ class ItemsController < ApplicationController
 
   # /items/new GET
   def new
+    @item = Item.new
   end
 
   # /items POST
   def create
-    #@item = Item.create(name: params[:name], description: params[:description], price: params[:price], real: params[:real], weight: params[:weight])
-    @item = Item.create(params[:item])
-    redirect_to items_path
+    @item = Item.new(item_params)
+    if @item.save
+      redirect_to item_path(@item)
+    else
+      render 'new'
+    end
+    #render text: params.inspect
   end
 
   # /items/1/edit GET
