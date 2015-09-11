@@ -1,8 +1,8 @@
 class ItemsController < ApplicationController
-  before_action :find_item, only: [:show, :edit, :update, :destroy]
+  before_action :find_item, only: [:show, :edit, :update, :destroy, :upvote]
 
   def index
-    @items = Item.all
+    @items = Item.order(id: :asc)
     # render text: @items.map { |i| "#{i.name}: #{i.price}" }.join("<br/>")
   end
 
@@ -48,6 +48,16 @@ class ItemsController < ApplicationController
   def destroy
     @item.destroy
     redirect_to items_path
+  end
+
+  def upvote
+    @item.increment!(:votes_count)
+    redirect_to items_path
+  end
+
+  def expensive
+    @items = Item.where("price > 1000")
+    render "index"
   end
 
   private
