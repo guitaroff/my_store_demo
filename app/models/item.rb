@@ -1,5 +1,9 @@
 class Item < ActiveRecord::Base
 
+  #has_and_belongs_to_many :carts
+  has_many :positions
+  has_many :carts, through: :positions
+
   validates :price, numericality: { greater_than: 0, allow_nil: true }
   validates :name, presence: true
 
