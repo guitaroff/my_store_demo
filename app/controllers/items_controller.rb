@@ -2,7 +2,11 @@ class ItemsController < ApplicationController
   before_action :find_item, only: [:show, :edit, :update, :destroy, :upvote]
 
   def index
-    @items = Item.order(id: :asc)
+    #@items = Item.order(id: :asc)
+    @items = Item
+    @items = @items.where("price >= ? OR votes_count = ?", 200, 0).order(votes_count: :desc, price: :asc)
+    @items = @items.where("created_at >= ?", 1.day.ago) if params[:today]
+    @items = @items.where("votes_count >= ?", params[:votes_from]) if params[:votes_from]
     # render text: @items.map { |i| "#{i.name}: #{i.price}" }.join("<br/>")
   end
 
@@ -38,8 +42,10 @@ class ItemsController < ApplicationController
   def update
     @item.update_attributes(item_params)
     if @item.save
+      flash[:success] = "Success Update!"
       redirect_to item_path(@item)
     else
+      flash.now[:error] = "You made mistakes in your form!"
       render 'edit'
     end
   end
