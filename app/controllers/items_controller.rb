@@ -25,8 +25,8 @@ class ItemsController < ApplicationController
 
   # /items POST
   def create
-    @item = Item.new(item_params)
-    if @item.save
+    @item = Item.create(item_params)
+    if @item.errors.empty?
       redirect_to item_path(@item)
     else
       render 'new'
