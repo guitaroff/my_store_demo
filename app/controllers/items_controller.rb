@@ -53,7 +53,7 @@ class ItemsController < ApplicationController
   # /items/1 DELETE
   def destroy
     @item.destroy
-    redirect_to items_path
+    render json: { success: true }
   end
 
   def upvote

@@ -3,7 +3,7 @@
 <% if @items.empty? %>
   <b>No items in store</b>
 <% else %>
-  <table>
+  <table class="items">
     <tr>
       <th>item id</th>
       <th>Name</th>
@@ -13,11 +13,11 @@
     </tr>
 
     <% @items.each do |i| %>
-      <tr>
+      <tr data-item-id="<%= i.id %>">
         <td><%= i.id %></td>
         <td><%= link_to i.name, item_path(i) %></td>
         <td><%= i.price %> руб.</td>
-        <td><%= link_to 'Удалить', i, method: :delete, data: {confirm: 'Точно удалить?'} %></td>
+        <td><span class="deleteAction">Удалить</span><%#= link_to 'Удалить', i, method: :delete, data: {confirm: 'Точно удалить?'} %></td>
         <td>Рейтинг: <%= i.votes_count %>, <%= link_to "+", upvote_item_path(i)%></td>
       </tr>
 
