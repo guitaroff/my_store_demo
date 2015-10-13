@@ -53,6 +53,7 @@ class ItemsController < ApplicationController
   # /items/1 DELETE
   def destroy
     @item.destroy
+    ItemsMailer.item_destroyed(@item).deliver_now
     render json: { success: true }
   end
 

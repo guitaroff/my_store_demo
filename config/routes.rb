@@ -8,4 +8,6 @@ Rails.application.routes.draw do
   resources :admin, only: :index do
     get :users_count, on: :collection
   end
+
+  root 'items#index'
 end
